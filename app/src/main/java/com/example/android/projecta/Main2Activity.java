@@ -1,9 +1,6 @@
 package com.example.android.projecta;
 
 import android.app.AlertDialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,8 +23,6 @@ public class Main2Activity extends AppCompatActivity {
     public ImageLoader imgLoader;
     public ImageView qrImg;
     public TextView qrTxt;
-    public ClipboardManager clipboard;
-    public ClipData clip;
     public CharSequence clipTxt;
 
     String BASE_QR_URL = "http://chart.apis.google.com/chart?cht=qr&chs=400x400&chld=M&choe=UTF-8&chl=";
@@ -54,16 +49,10 @@ public class Main2Activity extends AppCompatActivity {
 //MY CODE STARTS FROM HERE-----------------------------------
 //-----------------------------------------------------------
 
-    public void buttonOK(View v) {
-        insertTxtCopy = qrTextField.getText().toString();
-
-        clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        clip = ClipData.newPlainText("Copied", insertTxtCopy);
-        clipboard.setPrimaryClip(clip);
-    }
 
     public void buttonQR(View v){
-        clipTxt = clipboard.getPrimaryClip().getItemAt(0).getText();
+        insertTxtCopy = qrTextField.getText().toString();
+        clipTxt = insertTxtCopy;
 
         //If the clipboard has text, and it is more than 0 characters.
         if((null != clipTxt) && (clipTxt.length() > 0)){
