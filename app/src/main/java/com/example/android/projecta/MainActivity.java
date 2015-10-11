@@ -6,8 +6,9 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
@@ -46,7 +47,9 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 String contents = intent.getStringExtra("SCAN_RESULT");
                 String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
-                displayForQR(contents);
+                String errorCorrectionLevel = intent.getStringExtra("SCAN_RESULT_ERROR_CORRECTION_LEVEL");
+
+                displayForQR(contents,format,errorCorrectionLevel);
                 // Handle successful scan
             } else if (resultCode == RESULT_CANCELED) {
                 // Handle cancel
@@ -79,9 +82,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Display the text received from the QR Code
-    public void displayForQR(String qrData) {
+    public void displayForQR(String qrData, String format, String errorCorrectionLevel) {
         TextView displayView = (TextView) findViewById(R.id.qrScanData);
-        displayView.setText(String.valueOf(qrData));
+        displayView.setMovementMethod(new ScrollingMovementMethod());
+
+
+        String qrSummary = "Format: " + format;
+        qrSummary += "\nError Correction Level: " + errorCorrectionLevel;
+        qrSummary += "\n\nReceive Data: \n";
+        qrSummary += qrData;
+        displayView.setText(String.valueOf(qrSummary));
     }
 
     //-------------------------------------------------------------------------

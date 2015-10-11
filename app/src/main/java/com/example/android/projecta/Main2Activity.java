@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -44,8 +45,11 @@ public class Main2Activity extends AppCompatActivity {
         imgLoader.init(config);
 
         qrTextField = (EditText) findViewById(R.id.textQR);
+        qrTextField.setMaxLines(1);
+        qrTextField.setVerticalScrollBarEnabled(true);
+        qrTextField.setMovementMethod(new ScrollingMovementMethod());
+
         qrImg = (ImageView)findViewById(R.id.qrImg);
-        qrTxt = (TextView)findViewById(R.id.textView);
 
         spinner = (Spinner) findViewById(R.id.spinner);
 
@@ -79,8 +83,6 @@ public class Main2Activity extends AppCompatActivity {
         //If the clipboard has text, and it is more than 0 characters.
         if((null != clipTxt) && (clipTxt.length() > 0)){
             try {
-                qrTxt.setText(clipTxt);
-
                 String copiedStr = clipTxt.toString();
                 fullUrl = "http://chart.apis.google.com/chart?cht=qr&chs=400x400&chld="+ selectedItemError +"&choe=UTF-8&chl="+ URLEncoder.encode(copiedStr, "UTF-8");
 
