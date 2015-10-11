@@ -4,60 +4,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.android.projecta.Main2Activity">
 
     <TextView
+        android:id="@+id/insertText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Insert Text"
-        android:id="@+id/insertText" />
+        android:text="Insert Text" />
 
     <EditText
+        android:id="@+id/textQR"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textQR" />
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
+        <TextView
+            android:id="@+id/ecmText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Generate QR Code"
-            android:onClick="buttonQR"
-            android:id="@+id/buttonTextGenerate" />
+            android:text="Error Correction Method:  " />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:id="@+id/spinner"></Spinner>
+
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/buttonTextGenerate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="buttonQR"
+        android:text="Generate QR Code" />
+
     <View
 
         android:layout_width="match_parent"
-        android:layout_height= "2dp"
+        android:layout_height="2dp"
         android:background="#9E9E9E" />
 
     <ImageView
+        android:id="@+id/qrImg"
         android:layout_width="match_parent"
         android:layout_height="300sp"
-        android:background="#E0E0E0"
-        android:id="@+id/qrImg"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:background="#E0E0E0" />
 
     <View
 
         android:layout_width="match_parent"
-        android:layout_height= "2dp"
+        android:layout_height="2dp"
         android:background="#9E9E9E" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
         android:layout_gravity="center_horizontal"
-        android:text="Generated QR Code"/>
+        android:text="Generated QR Code" />
 </LinearLayout>

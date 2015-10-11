@@ -5,8 +5,11 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -24,6 +27,8 @@ public class Main2Activity extends AppCompatActivity {
     public ImageView qrImg;
     public TextView qrTxt;
     public CharSequence clipTxt;
+    public Spinner spinner;
+    public String selectedItemError;
 
     String BASE_QR_URL = "http://chart.apis.google.com/chart?cht=qr&chs=400x400&chld=M&choe=UTF-8&chl=";
     String fullUrl = BASE_QR_URL;
@@ -42,6 +47,23 @@ public class Main2Activity extends AppCompatActivity {
         qrImg = (ImageView)findViewById(R.id.qrImg);
         qrTxt = (TextView)findViewById(R.id.textView);
 
+        spinner = (Spinner) findViewById(R.id.spinner);
+
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this,R.array.errorCorrectionMethod,android.R.layout.simple_spinner_item);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedItemError = spinner.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
     } //void onCreate
 
 //-----------------------------------------------------------
@@ -57,10 +79,13 @@ public class Main2Activity extends AppCompatActivity {
         //If the clipboard has text, and it is more than 0 characters.
         if((null != clipTxt) && (clipTxt.length() > 0)){
             try {
-                qrTxt.setText(clipTxt);
+                //qrTxt.setText(clipTxt);
+                qrTxt.setText(selectedItemError);
+
                 String copiedStr = clipTxt.toString();
                 fullUrl = BASE_QR_URL + URLEncoder.encode(copiedStr, "UTF-8");
                 imgLoader.displayImage(fullUrl, qrImg);
+
 
             } catch (UnsupportedEncodingException e) {
                 // TODO Auto-generated catch block
