@@ -79,11 +79,11 @@ public class Main2Activity extends AppCompatActivity {
         //If the clipboard has text, and it is more than 0 characters.
         if((null != clipTxt) && (clipTxt.length() > 0)){
             try {
-                //qrTxt.setText(clipTxt);
-                qrTxt.setText(selectedItemError);
+                qrTxt.setText(clipTxt);
 
                 String copiedStr = clipTxt.toString();
-                fullUrl = BASE_QR_URL + URLEncoder.encode(copiedStr, "UTF-8");
+                fullUrl = "http://chart.apis.google.com/chart?cht=qr&chs=400x400&chld="+ selectedItemError +"&choe=UTF-8&chl="+ URLEncoder.encode(copiedStr, "UTF-8");
+
                 imgLoader.displayImage(fullUrl, qrImg);
 
 

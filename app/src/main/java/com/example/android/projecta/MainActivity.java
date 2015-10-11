@@ -79,9 +79,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Display the text received from the QR Code
-    public void displayForQR(String score) {
-        TextView displayView = (TextView) findViewById(R.id.test_display);
-        displayView.setText(String.valueOf(score));
+    public void displayForQR(String qrData) {
+        TextView displayView = (TextView) findViewById(R.id.qrScanData);
+        displayView.setText(String.valueOf(qrData));
     }
 
     //-------------------------------------------------------------------------
