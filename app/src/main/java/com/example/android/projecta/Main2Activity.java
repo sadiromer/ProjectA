@@ -70,7 +70,7 @@ public class Main2Activity extends AppCompatActivity {
             try {
                 qrTxt.setText(clipTxt);
                 String copiedStr = clipTxt.toString();
-                fullUrl += URLEncoder.encode(copiedStr, "UTF-8");
+                fullUrl = BASE_QR_URL + URLEncoder.encode(copiedStr, "UTF-8");
                 imgLoader.displayImage(fullUrl, qrImg);
 
             } catch (UnsupportedEncodingException e) {
