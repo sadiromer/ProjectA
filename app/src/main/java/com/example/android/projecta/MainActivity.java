@@ -29,8 +29,10 @@ public class MainActivity extends AppCompatActivity {
 //MY CODE STARTS FROM HERE-----------------------------------
 //-----------------------------------------------------------
 
-    //Scanning the QR codes
-
+    /**
+     * This method is called when the Scan Button is clicked
+     * Uses Intent to find a Zxing Scanning application, and goes to that appliccation
+     */
     public void scanQR(View v) {
         try {
             Intent intent = new Intent(ACTION_SCAN);
@@ -41,7 +43,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }//Scan QR button
 
-
+    /**
+     * This methois is called to request data from the scanned QR code from the Zxing Application
+     * @param requestCode the code requested
+     * @param resultCode obtained result code
+     * @param intent getting the scanned result using intent
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == 0) {
             if (resultCode == RESULT_OK) {
@@ -55,10 +62,18 @@ public class MainActivity extends AppCompatActivity {
                 // Handle cancel
             }
         }
-    }
+    } //public void onActivityResults
 
 
-    //showDialog Method, method used to download the QR code app
+    /**
+     * Method used to download the QR code app
+     * @param act
+     * @param title
+     * @param message
+     * @param buttonYes
+     * @param buttonNo
+     * @return
+     */
     private static AlertDialog showDialog(final Activity act, CharSequence title, CharSequence message, CharSequence buttonYes, CharSequence buttonNo) {
         AlertDialog.Builder downloadDialog = new AlertDialog.Builder(act);
         downloadDialog.setTitle(title);
@@ -81,7 +96,12 @@ public class MainActivity extends AppCompatActivity {
         return downloadDialog.show();
     }
 
-    //Display the text received from the QR Code
+    /**
+     * Method to Display text received from the QR code
+     * @param qrData is the data scanned from the QR code
+     * @param format is the format of the QR code scanned
+     * @param errorCorrectionLevel is the Error Correction Level of the scanned QR code
+     */
     public void displayForQR(String qrData, String format, String errorCorrectionLevel) {
         TextView displayView = (TextView) findViewById(R.id.qrScanData);
         displayView.setMovementMethod(new ScrollingMovementMethod());
@@ -92,14 +112,13 @@ public class MainActivity extends AppCompatActivity {
         qrSummary += "\n\nReceive Data: \n";
         qrSummary += qrData;
         displayView.setText(String.valueOf(qrSummary));
-    }
+    }//public void displayForQR
 
     //-------------------------------------------------------------------------
 
-    //Generating QRcode button press
-    //When button is pressed a new activity is created
-    //and it goes to another screen
-
+    /**
+     * Method to create a 2nd activity to Generate QR code
+     */
     public void Generate(View v) {
         Intent intent = new Intent(MainActivity.this, Main2Activity.class);
         startActivity(intent);

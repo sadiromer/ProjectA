@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -26,7 +25,6 @@ public class Main2Activity extends AppCompatActivity {
     public EditText qrTextField;
     public ImageLoader imgLoader;
     public ImageView qrImg;
-    public TextView qrTxt;
     public CharSequence clipTxt;
     public Spinner spinner;
     public String selectedItemError;
@@ -40,17 +38,32 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+        //----------------------------------------------------------------
+        //My code inside the onCreate. Defining require fields------------
+        //----------------------------------------------------------------
+
+        //Defining the external library thats used to generate the Image for the generated QR
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
         imgLoader = ImageLoader.getInstance();
         imgLoader.init(config);
 
+        //Defining the editText Field
+        //Setting the field to be scrollable with the 1 line view
         qrTextField = (EditText) findViewById(R.id.textQR);
         qrTextField.setMaxLines(1);
         qrTextField.setVerticalScrollBarEnabled(true);
         qrTextField.setMovementMethod(new ScrollingMovementMethod());
 
+        //Defining the imageView thats used to generate the QR image
         qrImg = (ImageView)findViewById(R.id.qrImg);
 
+        //Defining the Spinner used to choose the type of Error Correction level used
+        //The variables in the spinner are defined in strings.xml
+        // 'errorCorrectionMethod' is the variable used in strings.xml
+        // 'simple_spinner_method' is the type of spinner used
+        //An adapter is used to set the variables to the spinner
+
+        //Start of Defining Spinner----------------------------------------
         spinner = (Spinner) findViewById(R.id.spinner);
 
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this,R.array.errorCorrectionMethod,android.R.layout.simple_spinner_item);
@@ -67,15 +80,26 @@ public class Main2Activity extends AppCompatActivity {
 
             }
         });
+        //End of Spinner for ECM------------------------------------------
+
+        //----------------------------------------------------------------
+        //My code for onCreate ends here----------------------------------
+        //----------------------------------------------------------------
 
     } //void onCreate
 
-//-----------------------------------------------------------
 
-//MY CODE STARTS FROM HERE-----------------------------------
-//-----------------------------------------------------------
+//----------------------------------------------------------------
+//MY CODE STARTS FROM HERE----------------------------------------
+//----------------------------------------------------------------
 
-
+    /**
+     *Button generates the QR code for the given specific data and error correction level
+     * A URL provided by google is used to generate the QR code
+     *  'insertTxtCopy' used to get data from the textField and copied into 'clipTxt'
+     *The image is loaded using the external library
+     * If there is no data, a Toast is displayed
+     */
     public void buttonQR(View v){
         insertTxtCopy = qrTextField.getText().toString();
         clipTxt = insertTxtCopy;
@@ -97,9 +121,9 @@ public class Main2Activity extends AppCompatActivity {
         }else{ //If no text display a dialog.
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-            builder.setTitle("QRMaker")
+            builder.setTitle("Error")
                     .setCancelable(true)
-                    .setMessage("There was no data in the clipboard! Go copy something and come back")
+                    .setMessage("Please Insert Text")
                     .setNeutralButton("Okay", new DialogInterface.OnClickListener() {
 
                         @Override
@@ -113,6 +137,6 @@ public class Main2Activity extends AppCompatActivity {
             AlertDialog diag = builder.create();
             diag.show();
         }
-    }
+    }//Public void button QR
 
 } //Public class Main2Activity
